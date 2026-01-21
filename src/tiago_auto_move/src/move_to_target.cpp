@@ -12,6 +12,7 @@
 #include <cmath>
 #include <linkattacher_msgs/srv/attach_link.hpp>
 #include <linkattacher_msgs/srv/detach_link.hpp>
+#include <moveit/planning_scene_interface/planning_scene_interface.h>
 
 
 using namespace std::chrono_literals;
@@ -66,6 +67,40 @@ public:
             "/target_pose", 10, 
             std::bind(&MoveToTarget::poseCallback, this, std::placeholders::_1),
             sub_options);
+    }
+    
+    void addTableToPlanningScene() {
+        moveit::planning_interface::PlanningSceneInterface planning_scene_interface;
+
+        moveit_msgs::msg::CollisionObject collision_object;
+        collision_object.header.frame_id = "base_footprint";
+        collision_object.id = "table"; 
+
+        shape_msgs::msg::SolidPrimitive primitive;
+        primitive.type = primitive.BOX;
+        primitive.dimensions.resize(3);
+    
+        primitive.dimensions[0] = 1.0;
+        primitive.dimensions[1] = 0.6;
+        primitive.dimensions[2] = 0.75;
+
+        geometry_msgs::msg::Pose box_pose;
+    
+        box_pose.position.x = 1.0; 
+        box_pose.position.y = 0.0;  
+        box_pose.position.z = 0.0; 
+        box_pose.orientation.w = 1.0; 
+
+        collision_object.primitives.push_back(primitive);
+        collision_object.primitive_poses.push_back(box_pose);
+        collision_object.operation = collision_object.ADD;
+
+        std::vector<moveit_msgs::msg::CollisionObject> collision_objects;
+        collision_objects.push_back(collision_object);
+    
+        planning_scene_interface.applyCollisionObjects(collision_objects);
+
+        RCLCPP_INFO(rclcpp::get_logger("moveit_setup"), "Stół (1.0x0.6x0.75) dodany do sceny kolizyjnej.");
     }
 
 private:
@@ -407,7 +442,9 @@ int main(int argc, char **argv)
     rclcpp::init(argc, argv);
     auto node = std::make_shared<MoveToTarget>();
     node->initMoveGroups();
-
+    node->addTableToPlanningScene();
+    rclcpp::sleep_for(std::chrono::seconds(1));
+    
     rclcpp::executors::MultiThreadedExecutor executor;
     executor.add_node(node);
     executor.spin();
