@@ -45,11 +45,11 @@ class CentroidPublisher(Node):
         pose.header.frame_id = "base_link"
         pose.header.stamp = self.get_clock().now().to_msg()
 
-        table_height = 0.75
+        table_height = 0.375
         cube_height = 0.055
         gripper_length = 0.22
         
-        fingers_target_z = table_height + (cube_height / 2.0) + 0.10 - 0.375 - 0.1
+        fingers_target_z = table_height + (cube_height / 2.0)
 
         wrist_target_z = fingers_target_z + gripper_length
 
