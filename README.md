@@ -3,7 +3,7 @@
 > **Repository for Engineering Thesis:** > *"Chwytanie i przenoszenie obiektów z użyciem dwóch ramion robota Tiago Pro"* > **Author:** Zuzanna Urbaniak  
 > **Institution:** Poznan University of Technology (Politechnika Poznańska)
 
-![System Simulation](tiago_pro.pmp4)
+![System Simulation](tiago_pro.mp4)
 
 ## Overview
 This repository contains ROS 2 packages developed for autonomous object manipulation using the TIAGo Pro robot. The system integrates RGB-D perception (Open3D) with MoveIt 2 motion planning to perform a "handover" task (passing a cube between left and right arms) in a simulated environment.
@@ -29,4 +29,10 @@ This repository contains ROS 2 packages developed for autonomous object manipula
 1. Clone the repository into your ROS 2 workspace:
    ```bash
    cd ~/ros2_ws/src
-   git clone [https://github.com/YourUsername/YourRepo.git](https://github.com/YourUsername/YourRepo.git)
+   git clone [https://github.com/uzuzanna/tiago_dual_arm_manipulation.git](https://github.com/uzuzanna/tiago_dual_arm_manipulation.git)
+   colcon build
+   source install/setup.bash
+
+2. Start the program:
+   ```bash
+   ros2 launch tiago_auto_move tiago.launch.py
