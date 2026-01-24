@@ -4,6 +4,7 @@
 > **Institution:** Poznan University of Technology (Politechnika Poznańska)
 
 ![System Simulation](tiago_pro.mp4)
+*(Note: To view the simulation, download the video or view it in the repository)*
 
 ## Overview
 This repository contains ROS 2 packages developed for autonomous object manipulation using the TIAGo Pro robot. The system integrates RGB-D perception (Open3D) with MoveIt 2 motion planning to perform a "handover" task (passing a cube between left and right arms) in a simulated environment.
@@ -29,10 +30,28 @@ This repository contains ROS 2 packages developed for autonomous object manipula
 1. Clone the repository into your ROS 2 workspace:
    ```bash
    cd ~/ros2_ws/src
-   git clone [https://github.com/uzuzanna/tiago_dual_arm_manipulation.git](https://github.com/uzuzanna/tiago_dual_arm_manipulation.git)
+   git clone https://github.com/uzuzanna/tiago_dual_arm_manipulation.git
+   
+2. Install dependencies:
+   ```bash
+   rosdep install --from-paths src --ignore-src -r -y
+   
+3. Build the packages:
+   ```bash
+   cd ~/ros2_ws
    colcon build
    source install/setup.bash
-
-2. Start the program:
+   
+## How to Run
+1. Launch the complete simulation stack (Gazebo + MoveIt + Rviz):
    ```bash
    ros2 launch tiago_auto_move tiago.launch.py
+
+2. The system will automatically:
+* Spawn the table and cube objects.
+* Process perception data to find the cube's centroid.
+* Execute the pick-and-place sequence (Right Hand -> Handover -> Left Hand -> Table).
+
+## License
+MIT
+
