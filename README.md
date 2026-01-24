@@ -3,8 +3,7 @@
 > **Repository for Engineering Thesis:** > *"Chwytanie i przenoszenie obiektów z użyciem dwóch ramion robota Tiago Pro"* > **Author:** Zuzanna Urbaniak  
 > **Institution:** Poznan University of Technology (Politechnika Poznańska)
 
-![System Simulation](figures/gazebo_view.png)
-*(Optional: Place a screenshot or GIF of the simulation here)*
+![System Simulation](tiago_pro.pmp4)
 
 ## Overview
 This repository contains ROS 2 packages developed for autonomous object manipulation using the TIAGo Pro robot. The system integrates RGB-D perception (Open3D) with MoveIt 2 motion planning to perform a "handover" task (passing a cube between left and right arms) in a simulated environment.
